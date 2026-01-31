@@ -298,7 +298,7 @@ app.get('/', (req, res) => {
         page: 'pages/home', 
         title: 'Fafawin168 - เว็บสล็อตและคาสิโนออนไลน์ รวมทุกค่าย เกมแตกง่าย 2024',
         description: 'รีวิวค่ายเกมสล็อต PG, XO, JILI และเกมไพ่ยอดฮิต สมัครสมาชิก Fafawin168 วันนี้รับโปรโมชั่นพิเศษ',
-        canonical: 'https://www.fafawin168.com/',
+        canonical: 'https://ngccoenalgonda.org/',
         // hideNavbar: true,  <-- เอาบรรทัดนี้ออกเพื่อให้แสดง Navbar ปกติ
         promotions,
         hotGames,
@@ -311,7 +311,7 @@ app.get('/card-games', (req, res) => {
         page: 'pages/card-games',
         title: `${siteName} - รวมเกมไพ่ยอดฮิต ป๊อกเด้ง บาคาร่า อันดับ 1`,
         description: 'เล่นเกมไพ่ online กับ Fafawin168 สนุกกับบาคาร่า ดัมมี่ ป๊อกเด้ง',
-        canonical: 'https://www.fafawin168.com/card-games'
+        canonical: 'https://ngccoenalgonda.org/card-games'
     });
 });
 
@@ -320,7 +320,7 @@ app.get('/slots', (req, res) => {
         page: 'pages/slots', 
         title: `รวมค่ายสล็อตแตกง่าย - ${siteName} รีวิวเจาะลึกทุกค่าย`,
         description: 'อ่านรีวิวค่ายเกมสล็อต PG, Pragmatic Play, JILI และอื่นๆ พร้อมข้อมูลข้อดี-ข้อเสีย เพื่อช่วยคุณตัดสินใจก่อนเล่นจริง',
-        canonical: 'https://www.fafawin168.com/slots',
+        canonical: 'https://ngccoenalgonda.org/slots',
         providers
     });
 });
@@ -330,7 +330,7 @@ app.get('/register', (req, res) => {
         page: 'pages/register',
         title: `สมัครสมาชิก ${siteName} - รับเครดิตฟรีทันที`,
         description: 'สมัครสมาชิก Fafawin168 วันนี้ รับโบนัสพิเศษ',
-        canonical: 'https://www.fafawin168.com/register'
+        canonical: 'https://ngccoenalgonda.org/register'
     });
 });
 
@@ -339,7 +339,7 @@ app.get('/promotions', (req, res) => {
         page: 'pages/promotions',
         title: `โปรโมชั่นล่าสุด 2024 - ${siteName} แจกเครดิตฟรี คืนยอดเสีย สมาชิกใหม่รับ 100%`,
         description: 'รวมโปรโมชั่นสล็อตและคาสิโนออนไลน์ที่ดีที่สุดจาก Fafawin168 ฝากแรกรับโบนัส แนะนำเพื่อนรับค่าคอม คืนยอดเสียทุกวัน โปรโมชั่นสำหรับสมาชิกใหม่และเก่า',
-        canonical: 'https://www.fafawin168.com/promotions',
+        canonical: 'https://ngccoenalgonda.org/promotions',
         promotions 
     });
 });

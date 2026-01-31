@@ -1,16 +1,80 @@
-<h1 class="text-3xl font-bold mb-6 text-center text-yellow-400">เกมไพ่ยอดนิยม</h1>
-<article class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div class="bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700 hover:border-yellow-500 transition">
-        <h2 class="text-xl font-bold mb-2">บาคาร่า (Baccarat)</h2>
-        <p class="text-gray-400 text-sm mb-4">ถ่ายทอดสดจากคาสิโนจริง คมชัดระดับ 4K</p>
-        <button class="w-full bg-blue-600 py-2 rounded">เล่นทันที</button>
-    </div>
-    <div class="bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700 hover:border-yellow-500 transition">
-        <h2 class="text-xl font-bold mb-2">ป๊อกเด้ง (Pok Deng)</h2>
-        <p class="text-gray-400 text-sm mb-4">เกมไพ่ไทยยอดฮิต ลุ้นไพ่เองได้</p>
-        <button class="w-full bg-blue-600 py-2 rounded">เล่นทันที</button>
-    </div>
-    </article>
-<section class="mt-10 prose prose-invert max-w-none">
-    <h2>ทำไมต้องเล่นเกมไพ่กับ Fafawin168?</h2>
-    <p>เราคือผู้ให้บริการเกมไพ่ที่ได้รับการยอมรับ...</p> </section>
+<div class="space-y-16 pb-16">
+    <header class="text-center py-12 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-blue-900/30 to-transparent pointer-events-none"></div>
+        <div class="relative z-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-4 border border-blue-500/30">
+                Live Casino & Table Games
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-white to-blue-300 drop-shadow-lg">
+                รวมเกมไพ่และคาสิโนออนไลน์
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                สัมผัสความตื่นเต้นระดับโลก ทั้งบาคาร่าสด ป๊อกเด้ง และเสือมังกร 
+                <br class="hidden md:block"> ส่งตรงจากคาสิโนจริงถึงหน้าจอมือถือคุณ คมชัด ลื่นไหล ไม่มีสะดุด
+            </p>
+        </div>
+    </header>
+
+    <section class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <% cardGames.forEach(game => { %>
+                <div class="group relative bg-gray-800 rounded-3xl overflow-hidden border border-gray-700 hover:border-blue-500 transition-all duration-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] hover:-translate-y-2 flex flex-col h-full">
+                    
+                    <div class="relative h-64 overflow-hidden bg-gray-900">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10"></div>
+                        <img src="<%= game.img %>" alt="<%= game.name %>" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100">
+                        
+                        <div class="absolute top-4 right-4 z-20">
+                            <span class="bg-black/60 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/20">
+                                <%= game.category %>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 flex flex-col flex-grow relative z-20">
+                        <h2 class="text-2xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors"><%= game.name %></h2>
+                        <p class="text-gray-400 text-sm mb-6 leading-relaxed flex-grow">
+                            <%= game.desc %>
+                        </p>
+
+                        <div class="space-y-2 mb-6">
+                            <% game.features.forEach(feature => { %>
+                                <div class="flex items-center text-xs text-gray-300">
+                                    <svg class="w-4 h-4 text-green-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <%= feature %>
+                                </div>
+                            <% }) %>
+                        </div>
+
+                        <a href="/register" class="block w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold text-center shadow-lg shadow-blue-900/50 transition-all transform active:scale-95">
+                            เข้าเล่นเกมนี้
+                        </a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 mt-12 border-t border-gray-800 pt-12">
+        <article class="prose prose-invert max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-white mb-8">ทำไมต้องเล่นเกมไพ่กับ Fafawin168?</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-left">
+                <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4 text-2xl">🎥</div>
+                    <h3 class="text-xl font-bold text-white mb-2">ถ่ายทอดสด คมชัด</h3>
+                    <p class="text-gray-400 text-sm">สัญญาณภาพส่งตรงจากคาสิโนต่างประเทศ ไม่มีการตัดต่อ มั่นใจได้ในความโปร่งใส 100%</p>
+                </div>
+                <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4 text-2xl">⚡</div>
+                    <h3 class="text-xl font-bold text-white mb-2">ฝากถอนไว ได้เงินจริง</h3>
+                    <p class="text-gray-400 text-sm">ระบบออโต้ที่รวดเร็วที่สุด ชนะปุ๊บถอนได้ปั๊บ รองรับทุกธนาคารและ True Wallet</p>
+                </div>
+                <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                    <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mb-4 text-2xl">💃</div>
+                    <h3 class="text-xl font-bold text-white mb-2">ดีลเลอร์สาวสวย</h3>
+                    <p class="text-gray-400 text-sm">เพลิดเพลินไปกับสาวสวยสุดเซ็กซี่ที่คอยให้บริการแจกไพ่ตลอด 24 ชั่วโมง ไม่มีเหงา</p>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>

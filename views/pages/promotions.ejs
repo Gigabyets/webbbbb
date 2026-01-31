@@ -1,0 +1,147 @@
+<div class="space-y-16 pb-16">
+    <header class="text-center py-12 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-red-900/30 to-transparent pointer-events-none"></div>
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-red-500 drop-shadow-sm leading-tight">
+            รวมโปรโมชั่น Fafawin168 ล่าสุด 2024
+        </h1>
+        <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto">
+            ศูนย์รวมสิทธิพิเศษสำหรับสมาชิก จัดหนักทั้งโบนัสสมาชิกใหม่ เครดิตฟรี และคืนยอดเสีย กดรับเองได้ตลอด 24 ชม.
+        </p>
+    </header>
+
+    <section class="container mx-auto px-4">
+        <div class="flex items-center gap-3 mb-8">
+            <div class="w-1.5 h-10 bg-red-600 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.5)]"></div>
+            <h2 class="text-2xl md:text-3xl font-bold text-white">🔥 โปรโมชั่นยอดนิยม (Hot Promotion)</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 gap-12">
+            <% promotions.filter(p => p.type === 'landscape').forEach(promo => { %>
+                <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-xl border border-gray-700 hover:border-yellow-500/50 transition duration-300 group flex flex-col md:flex-row">
+                    <div class="md:w-2/5 relative overflow-hidden">
+                        <img src="<%= promo.img %>" alt="<%= promo.title %>" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                        <div class="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded shadow-md z-10">
+                            แนะนำ
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                        <h3 class="text-2xl md:text-3xl font-bold text-yellow-400 mb-4"><%= promo.title %></h3>
+                        
+                        <div class="mb-6 text-gray-300 leading-relaxed text-sm md:text-base">
+                            <%= promo.fullDetail || promo.desc %>
+                        </div>
+                        
+                        <div class="bg-gray-900/50 rounded-xl p-5 mb-6 border border-gray-700/50">
+                            <h4 class="text-white font-semibold mb-2 text-sm uppercase tracking-wide opacity-80">เงื่อนไขและกติกา:</h4>
+                            <ul class="text-sm text-gray-400 space-y-2">
+                                <% promo.terms.forEach(term => { %>
+                                    <li class="flex items-start gap-2">
+                                        <svg class="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span><%= term %></span>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        </div>
+
+                        <a href="/register" class="w-full md:w-auto self-start px-8 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold rounded-lg shadow-lg hover:shadow-red-900/50 transition-all transform hover:-translate-y-1 text-center flex items-center justify-center gap-2">
+                            <span>สมัครรับโปรโมชั่นนี้</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        </a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 mt-8">
+        <div class="flex items-center gap-3 mb-8">
+            <div class="w-1.5 h-10 bg-yellow-500 rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div>
+            <h2 class="text-2xl md:text-3xl font-bold text-white">💎 สิทธิพิเศษสำหรับสมาชิก (Member Privilege)</h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <% promotions.filter(p => p.type === 'portrait').forEach(promo => { %>
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700 hover:shadow-yellow-500/20 transition-all flex flex-col h-full group">
+                    <div class="relative pt-[100%] overflow-hidden bg-gray-900">
+                        <img src="<%= promo.img %>" alt="<%= promo.title %>" class="absolute top-0 left-0 w-full h-full object-cover transition hover:scale-110 duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+                    </div>
+                    
+                    <div class="p-5 flex flex-col flex-grow relative">
+                        <h3 class="font-bold text-lg text-white mb-2 leading-tight group-hover:text-yellow-400 transition-colors"><%= promo.title %></h3>
+                        
+                        <p class="text-sm text-gray-400 mb-4 line-clamp-3"><%= promo.desc %></p>
+                        
+                        <div class="text-xs text-gray-500 mb-4 hidden">
+                           <%= promo.fullDetail %>
+                        </div>
+
+                        <div class="mt-auto pt-4 border-t border-gray-700">
+                            <ul class="text-xs text-gray-400 space-y-1 mb-4">
+                                <% promo.terms.slice(0, 2).forEach(term => { %>
+                                    <li class="flex items-start gap-1">
+                                        <span class="text-yellow-500">•</span> <%= term %>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                            
+                            <a href="/register" class="block w-full text-center border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black font-semibold text-sm py-2.5 rounded transition-all shadow hover:shadow-yellow-500/25">
+                                สมัครรับโปรโมชั่น
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 mt-16 pt-10 border-t border-gray-800">
+        <article class="prose prose-invert max-w-4xl mx-auto prose-headings:text-yellow-400 prose-a:text-red-400 prose-p:text-gray-300">
+            <h2 class="text-3xl font-bold text-center mb-10">ทำไมต้องรับโปรโมชั่นกับ Fafawin168?</h2>
+            
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="bg-gray-800/30 p-6 rounded-xl border border-gray-700/50">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center gap-2">
+                        <span class="text-2xl">💰</span> เพิ่มทุน เพิ่มโอกาสชนะ
+                    </h3>
+                    <p>
+                        การรับโปรโมชั่นสล็อต เช่น <strong>ฝาก 100 รับ 200</strong> ช่วยให้คุณมีเครดิตในกระเป๋าเพิ่มขึ้นถึง 2 เท่า นั่นหมายความว่าคุณสามารถหมุนสล็อตได้จำนวนครั้งมากขึ้น (More Spins) ซึ่งตามหลักสถิติแล้ว ยิ่งหมุนมาก โอกาสที่จะเข้าสู่โหมดโบนัส (Free Spins) หรือแจ็คพอตแตก (Jackpot Hit) ก็จะยิ่งสูงขึ้นตามไปด้วย
+                    </p>
+                </div>
+                <div class="bg-gray-800/30 p-6 rounded-xl border border-gray-700/50">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center gap-2">
+                        <span class="text-2xl">🛡️</span> ลดความเสี่ยงในการเดิมพัน
+                    </h3>
+                    <p>
+                        โปรโมชั่นอย่าง <strong>คืนยอดเสีย 5%</strong> เปรียบเสมือนประกันภัยในการเล่นของคุณ หากวันไหนโชคไม่เข้าข้าง คุณก็ยังมีเงินคืนกลับมาเพื่อใช้เป็นทุนในวันถัดไป ทำให้คุณไม่ต้องควักทุนในกระเป๋าตัวเองเพิ่ม ช่วยบริหารจัดการเงินทุน (Money Management) ได้อย่างมีประสิทธิภาพ
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-10">
+                <h3 class="text-2xl font-bold mb-4">คำถามที่พบบ่อย (FAQ)</h3>
+                <div class="space-y-4">
+                    <details class="bg-gray-800 rounded-lg p-4 cursor-pointer group">
+                        <summary class="flex justify-between items-center font-semibold text-white list-none">
+                            รับโปรโมชั่นแล้วถอนเงินได้จริงไหม?
+                            <span class="transform group-open:rotate-180 transition">▼</span>
+                        </summary>
+                        <p class="mt-3 text-gray-400">
+                            ได้จริง 100% ครับ ที่ Fafawin168 เราใช้ระบบถอนเงินออโต้ เมื่อคุณทำยอดเทิร์นโอเวอร์ครบตามเงื่อนไขของโปรโมชั่นนั้นๆ (ซึ่งส่วนใหญ่เทิร์นต่ำมาก) คุณสามารถกดถอนเงินเข้าบัญชีธนาคารได้ทันทีตลอด 24 ชม.
+                        </p>
+                    </details>
+                    <details class="bg-gray-800 rounded-lg p-4 cursor-pointer group">
+                        <summary class="flex justify-between items-center font-semibold text-white list-none">
+                            สมาชิกใหม่แนะนำโปรไหนคุ้มสุด?
+                            <span class="transform group-open:rotate-180 transition">▼</span>
+                        </summary>
+                        <p class="mt-3 text-gray-400">
+                            สำหรับมือใหม่ แนะนำโปร "สมาชิกใหม่ 100%" (ฝาก 100 รับ 200) ครับ เพราะได้เครดิตเพิ่มเยอะที่สุด ทำให้มีทุนไปลองเล่นเกมต่างๆ ได้หลากหลายและคุ้มค่าที่สุดครับ
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>

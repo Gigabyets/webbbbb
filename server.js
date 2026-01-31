@@ -364,7 +364,8 @@ app.get('/card-games', (req, res) => {
         page: 'pages/card-games',
         title: `${siteName} - รวมเกมไพ่ยอดฮิต ป๊อกเด้ง บาคาร่า อันดับ 1`,
         description: 'เล่นเกมไพ่ online กับ Fafawin168 สนุกกับบาคาร่า ดัมมี่ ป๊อกเด้ง',
-        canonical: 'https://ngccoenalgonda.org/card-games'
+        canonical: 'https://ngccoenalgonda.org/card-games',
+        cardGames
     });
 });
 

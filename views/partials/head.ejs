@@ -6,6 +6,7 @@
     <meta name="description" content="<%= description %>">
     <link rel="canonical" href="<%= canonical %>">
     <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
     
     <meta property="og:title" content="<%= title %>">
     <meta property="og:description" content="<%= description %>">
@@ -14,5 +15,13 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <link rel="stylesheet" href="/css/styles.css">
+    
+
+    <style>
+        /* ย้ายมาจาก styles.css เพื่อลด HTTP Request */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 10px; }
+        @keyframes popupScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .animate-popup { animation: popupScale 0.2s ease-out forwards; }
+    </style>
 </head>

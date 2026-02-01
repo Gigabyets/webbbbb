@@ -2,10 +2,10 @@
     <div class="container mx-auto flex justify-between items-center">
         <a href="/" class="text-2xl font-bold text-yellow-400">FAFAWIN168</a>
 
-        <button @click="isOpen = !isOpen" class="text-yellow-400 md:hidden focus:outline-none">
-            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
-                <path x-show="!isOpen" d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path x-show="isOpen" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <button @click="isOpen = !isOpen" 
+                class="text-yellow-400 md:hidden focus:outline-none p-2" 
+                aria-label="เปิดเมนูหลัก"> <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
         </button>
 

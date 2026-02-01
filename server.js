@@ -13,7 +13,7 @@ app.set('views', path.join(__dirname, 'views'));
 // 2. ตั้งค่า Static Cache สำหรับไฟล์ในโฟลเดอร์ public (เช่น .webp, .css, .js)
 // ช่วยให้เบราว์เซอร์เก็บไฟล์ไว้ในเครื่องผู้ใช้ ไม่ต้องโหลดใหม่ทุกครั้ง
 app.use(express.static(path.join(__dirname, 'public'), {
-    maxAge: '1d', // เก็บแคชไว้ 1 วัน
+    maxAge: '1m', // เก็บแคชไว้ 1 วัน
     etag: true
 }));
 

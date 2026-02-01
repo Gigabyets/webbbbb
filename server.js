@@ -1,21 +1,30 @@
 const express = require('express');
-const app = express();
+const compression = require('compression'); // เพิ่มระบบบีบอัดข้อมูล
 const path = require('path');
+const app = express();
 const port = 3000;
+
+// 1. ใช้งาน Middleware สำหรับบีบอัดข้อมูล (Gzip) เพื่อให้โหลดหน้าเว็บเร็วขึ้น
+app.use(compression());
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
+
+// 2. ตั้งค่า Static Cache สำหรับไฟล์ในโฟลเดอร์ public (เช่น .webp, .css, .js)
+// ช่วยให้เบราว์เซอร์เก็บไฟล์ไว้ในเครื่องผู้ใช้ ไม่ต้องโหลดใหม่ทุกครั้ง
+app.use(express.static(path.join(__dirname, 'public'), {
+    maxAge: '1d', // เก็บแคชไว้ 1 วัน
+    etag: true
+}));
 
 const siteName = "Fafawin168";
 
-// --- 1. ข้อมูลโปรโมชั่น (คงเดิม) ---
+// --- 1. ข้อมูลโปรโมชั่น (นามสกุลไฟล์ .webp) ---
 const promotions = [
-    // ... (ข้อมูลเดิมของคุณ) ...
     {
         id: 'banner-wheel',
         type: 'landscape',
-        img: '/images/promotions/gemini-section-1765889565.png', 
+        img: '/images/promotions/gemini-section-1765889565.webp', 
         title: 'วงล้อเสี่ยงโชค ลุ้นทองคำหนัก 1 บาท',
         desc: 'กิจกรรมพิเศษสำหรับสมาชิก Fafawin168 เพียงฝากเงินครบตามกำหนด รับสิทธิ์หมุนกงล้อลุ้นโชคทองคำฟรีทันที',
         fullDetail: 'โปรโมชั่นสุดร้อนแรงประจำปี 2024 "วงล้อพาเฮง" ที่แจกหนักกว่าใคร เพียงคุณเป็นสมาชิกและมียอดฝากครบ 300 บาท รับทันที 1 สิทธิ์ในการหมุนวงล้อเสี่ยงโชค ลุ้นรับรางวัลใหญ่สร้อยคอทองคำหนัก 1 บาท, iPhone 15 Pro Max, เครดิตฟรี 1,000 บาท และของรางวัลอื่นๆ อีกมากมาย ยิ่งฝากมาก ยิ่งมีสิทธิ์มาก กิจกรรมดีๆ ที่สายปั่นสล็อตไม่ควรพลาด',
@@ -24,7 +33,7 @@ const promotions = [
     {
         id: 'banner-mission',
         type: 'landscape',
-        img: '/images/promotions/gemini-section-1765889576.png', 
+        img: '/images/promotions/gemini-section-1765889576.webp', 
         title: 'ภารกิจพิชิตรางวัลรายวัน',
         desc: 'ทำภารกิจง่ายๆ สำเร็จรับเครดิตฟรีไม่อั้น แจกจริงทุกวัน',
         fullDetail: 'สนุกกับการเล่นเกมสล็อตและคาสิโนยิ่งขึ้นด้วยระบบ "Daily Missions" เพียงคุณล็อคอินต่อเนื่อง, ทำยอด Turn Over ให้ถึงเป้า หรือแนะนำเพื่อนมาร่วมสนุก ก็สามารถกดรับแต้มสะสมเพื่อแลกเป็นเครดิตฟรีได้ทันที ระบบภารกิจรีเซ็ตทุกวันเที่ยงคืน ให้คุณมีโอกาสรับเงินทุนฟรีๆ ไปต่อยอดได้ทุกวัน เป็นโปรโมชั่นที่ช่วยเพิ่มโอกาสชนะให้สมาชิกทุกคน',
@@ -33,7 +42,7 @@ const promotions = [
     {
         id: 'banner-loss-return',
         type: 'landscape',
-        img: '/images/promotions/2f2d19560b1279ce92a16a0a980c3f4b.jpg',
+        img: '/images/promotions/2f2d19560b1279ce92a16a0a980c3f4b.webp',
         title: 'Cashback คืนยอดเสีย 5% ทุกวัน',
         desc: 'เล่นเสียไม่ต่องเศร้า เราคืนทุนให้สูงสุด 5,000 บาท กดรับได้เองไม่ต้องรอแอดมิน',
         fullDetail: 'Fafawin168 เข้าใจหัวอกคนเล่นเสีย เราจึงจัดโปรโมชั่น "คืนยอดเสีย 5%" ให้กับสมาชิกทุกท่าน ไม่ว่าจะเล่นสล็อต บาคาร่า หรือยิงปลา หากมียอดเสียสุทธิในวันนั้นๆ ระบบจะคำนวณเงินคืนให้ทันทีในวันถัดไป สูงสุดถึง 5,000 บาทต่อวัน ที่สำคัญคือ ยอดเงินคืนนี้ "ไม่ติดเทิร์น" สามารถถอนออกมาเป็นเงินสดได้ทันที หรือจะนำไปเล่นต่อเพื่อแก้ตัวก็ทำได้ง่ายๆ',
@@ -42,7 +51,7 @@ const promotions = [
     {
         id: 'banner-invite',
         type: 'landscape',
-        img: '/images/promotions/ddbc6ba9bb776f1aeacd9df3ff3782d6.jpg',
+        img: '/images/promotions/ddbc6ba9bb776f1aeacd9df3ff3782d6.webp',
         title: 'แนะนำเพื่อนรับค่าคอมฯ 0.8%',
         desc: 'สร้างรายได้ Passive Income หลักแสนต่อเดือน เพียงชวนเพื่อนมาเล่นกับเรา',
         fullDetail: 'เปลี่ยนการเล่นเกมให้เป็นรายได้ด้วยระบบ "ลิงก์รับทรัพย์" หรือ Affiliate เพียงแชร์ลิงก์แนะนำเพื่อนของคุณผ่าน Social Media (Facebook, Line, TikTok) เมื่อมีคนสมัครและเล่นเกม คุณจะได้รับส่วนแบ่งค่าคอมมิชชั่นทันที สูงสุด 0.8% จากยอดเทิร์นโอเวอร์ของเพื่อน (ได้ทั้งยอดได้และยอดเสีย) รับรายได้ตลอดชีพ ยิ่งชวนมาก ยิ่งรวยเร็ว ถอนได้ไม่มีขั้นต่ำ',
@@ -51,7 +60,7 @@ const promotions = [
     { 
         id: 'new-member',
         type: 'portrait',
-        img: '/images/promotions/สมาชิกใหม่.png', 
+        img: '/images/promotions/สมาชิกใหม่.webp', 
         title: 'สมาชิกใหม่ รับโบนัส 100%', 
         desc: 'สมัครสมาชิกใหม่วันนี้ ฝาก 100 รับเพิ่มเป็น 200 บาททันที โปรโมชั่นต้อนรับสมาชิกใหม่ที่คุ้มค่าที่สุด ช่วยเพิ่มโอกาสแตกรางวัลใหญ่',
         fullDetail: 'โปรโมชั่นสุดฮิตสำหรับ New User เพียงสมัครและฝากเงินครั้งแรก รับโบนัสเพิ่มทันที 100% (ฝาก 100 รับ 200) เหมาะสำหรับผู้เริ่มต้นที่ต้องการทุนเพิ่มเพื่อทดลองเล่นเกมสล็อตค่าย PG หรือ JILI ทำเทิร์นน้อยเพียง 3 เท่า ก็สามารถถอนเงินออกได้จริง สูงสุดถึง 5,000 บาท',
@@ -60,7 +69,7 @@ const promotions = [
     { 
         id: 'first-deposit',
         type: 'portrait',
-        img: '/images/promotions/ฝากแรกของวัน.png', 
+        img: '/images/promotions/ฝากแรกของวัน.webp', 
         title: 'ฝากแรกของวัน รับ 10%', 
         desc: 'เริ่มต้นวันใหม่ด้วยโบนัสพิเศษ เพียงฝากเงินยอดแรกของวัน รับโบนัสเพิ่มทันที 10% สูงสุด 1,000 บาท',
         fullDetail: 'เติมพลังให้ทุกเช้าของคุณด้วยโปร "ฝากแรกรับ 10%" ไม่ว่าคุณจะเป็นสมาชิกเก่าหรือใหม่ เพียงทำการฝากเงินยอดแรกของวันนั้นๆ เข้ามา ระบบจะบวกโบนัสเพิ่มให้ทันที ช่วยให้คุณมีทุนในการปั่นสล็อตได้นานขึ้นและลุ้นเข้าฟรีสปินได้ง่ายขึ้น',
@@ -69,7 +78,7 @@ const promotions = [
     { 
         id: 'happy-time',
         type: 'portrait',
-        img: '/images/promotions/Happy-time.png', 
+        img: '/images/promotions/Happy-time.webp', 
         title: 'นาทีทอง Happy Time 20%', 
         desc: 'ช่วงเวลาพิเศษ 18.00 - 20.00 น. ฝากเงินเวลานี้รับโบนัสเพิ่มทันที 20% เอาใจคนเลิกงาน',
         fullDetail: 'โปรโมชั่นเอาใจคนทำงานหลังเลิกงาน ช่วงเวลาแห่งความสุข Happy Time หากคุณฝากเงินในช่วงเวลา 18.00 น. ถึง 20.00 น. รับโบนัสเพิ่มทันที 20% จากยอดฝาก เป็นช่วงเวลาที่เกมสล็อตแตกง่ายที่สุด เหมาะแก่การล่ารางวัลแจ็คพอต',
@@ -78,7 +87,7 @@ const promotions = [
     {
         id: 'rich-all-day',
         type: 'portrait',
-        img: '/images/promotions/รวยตลอดวัน.png',
+        img: '/images/promotions/รวยตลอดวัน.webp',
         title: 'รวยตลอดวัน รับโบนัส 5%',
         desc: 'โปรโมชั่นสำหรับสายเติมบ่อย ทุกยอดฝากรับโบนัสท็อปอัพเพิ่ม 5% ไม่จำกัดจำนวนครั้ง',
         fullDetail: 'เติมเมื่อไหร่ก็ได้โบนัส กับโปร "รวยตลอดวัน" ที่มอบโบนัส 5% ให้กับทุกยอดฝากของคุณตลอด 24 ชั่วโมง ไม่ว่าจะฝากเช้า สาย บ่าย ดึก ก็ได้รับความคุ้มค่าเสมอ ช่วยให้คุณแก้เกมหรือทำกำไรได้ต่อเนื่องแบบไม่มีสะดุด',
@@ -86,17 +95,17 @@ const promotions = [
     }
 ];
 
-// --- 2. ข้อมูลเกมแนะนำ (คงเดิม) ---
+// --- 2. ข้อมูลเกมแนะนำ (นามสกุลไฟล์ .webp) ---
 const hotGames = [
     { name: 'Caishen Wins', img: '/images/card_game/caishen-wins.webp', type: 'Slot', rate: '96.92%' },
     { name: 'Lucky Neko', img: '/images/card_game/lucky-neko.webp', type: 'Slot', rate: '96.73%' },
     { name: 'Ways of the Qilin', img: '/images/card_game/ways-of-the-qilin.webp', type: 'Slot', rate: '96.69%' },
-    { name: 'Mahjong Phoenix', img: '/images/card_game/mahjong-phoenix.png', type: 'Slot', rate: '97.00%' },
+    { name: 'Mahjong Phoenix', img: '/images/card_game/mahjong-phoenix.webp', type: 'Slot', rate: '97.00%' },
     { name: 'Wild Bounty', img: '/images/card_game/wild-bounty-showdown.webp', type: 'Slot', rate: '96.75%' },
     { name: 'Sexy Gaming', img: '/images/card_game/sexygame-portal.webp', type: 'Casino', rate: 'Live' },
 ];
 
-// --- 3. ข้อมูลค่ายเกม (ใช้ข้อมูลล่าสุดที่คุณให้มา) ---
+// --- 3. ข้อมูลค่ายเกม (นามสกุลไฟล์ .webp) ---
 const providers = [
     { 
         name: 'PG SOFT', id: 'pg-soft',
@@ -175,7 +184,7 @@ const providers = [
     },
     { 
         name: 'NextSpin', id: 'nextspin',
-        img: '/images/acadame/nextspin_menu.png', 
+        img: '/images/acadame/nextspin_menu.webp', 
         desc: 'ค่ายสล็อตม้ามืดที่เน้นทำเกมล้อเลียน (Parody) และธีมตลกขบขัน เกมของ NextSpin มักจะมีค่า RTP (Return to Player) ที่สูงกว่ามาตรฐานตลาด ทำให้ผู้เล่นรู้สึกว่า "แตกง่าย" และ "คืนทุนไว" นอกจากนี้ยังมีฟีเจอร์หมุนออโต้ที่รวดเร็วทันใจ เหมาะกับสายปั่นทำเทิร์น',
         pros: [
             'RTP สูง แตกง่าย คืนทุนไว',
@@ -190,7 +199,7 @@ const providers = [
     },
     { 
         name: 'FastSpin', id: 'fastspin',
-        img: '/images/acadame/fastspin_menu.png', 
+        img: '/images/acadame/fastspin_menu.webp', 
         desc: 'ตามชื่อเลยครับ "FastSpin" เน้นความเร็วและความคลาสสิก ค่ายนี้เชี่ยวชาญเรื่องสล็อตผลไม้ (Fruit Slots) และสล็อตตัวเลข 777 ที่มีกลิ่นอายของตู้สล็อตยุค 90s แต่จับมาใส่กราฟิกสมัยใหม่ ฟีเจอร์ไม่ซับซ้อน เหมาะสำหรับผู้ใหญ่หรือคนที่ชอบความเรียบง่าย ไม่ชอบเอฟเฟกต์วิบวับปวดตา',
         pros: [
             'เอาใจสาย Retro ชอบสล็อตผลไม้และ 777',
@@ -205,7 +214,7 @@ const providers = [
     },
     { 
         name: 'Dragoon Soft', id: 'dragoon-soft',
-        img: '/images/acadame/dragoonsoft_menu.png', 
+        img: '/images/acadame/dragoonsoft_menu.webp', 
         desc: 'ค่ายสล็อตสายเลือดมังกรที่เข้าใจรสนิยมคนเอเชียเป็นอย่างดี Dragoon Soft โดดเด่นเรื่องเกมที่มีเนื้อหาเกี่ยวกับตำนานจีน กำลังภายใน และสัตว์เทพมงคล นอกจากนี้ยังมีเกมยิงปลาที่สนุกไม่แพ้ JILI จุดเด่นคือระบบ "Golden Time" ที่มักจะปล่อยรางวัลใหญ่ในช่วงเวลาที่คนเล่นเยอะ',
         pros: [
             'ธีมเกมถูกจริตคนไทยและคนจีน (สายมูเตลู)',
@@ -220,7 +229,7 @@ const providers = [
     },
     { 
         name: 'Peter & Sons', id: 'peter-sons',
-        img: '/images/acadame/peterandsons_menu.png', 
+        img: '/images/acadame/peterandsons_menu.webp', 
         desc: 'ถ้าคุณเบื่อสล็อตภาพเดิมๆ ต้องลอง Peter & Sons ค่ายนี้คือ "งานศิลปะ" แห่งวงการสล็อต ด้วยลายเส้นการ์ตูนที่เป็นเอกลักษณ์ (Artistic Style) ไม่เหมือนใคร เหมือนดูอนิเมชั่นอินดี้ ฟีเจอร์เกมมีความคิดสร้างสรรค์สูงมาก แปลกใหม่ และคาดเดาไม่ได้ เหมาะสำหรับคนที่ชอบความแปลกใหม่และเสพงานศิลป์',
         pros: [
             'งานภาพมีเอกลักษณ์ที่สุดในโลก (10/10)',
@@ -236,7 +245,7 @@ const providers = [
     { 
         name: 'PoggiPlay', id: 'poggiplay',
         img: '/images/acadame/poggiplay_menu.webp', 
-        desc: 'สล็อตยุค Metaverse ต้อง PoggiPlay ค่ายเกมน้องใหม่ที่มาพร้อมดีไซน์ล้ำอนาคต (Futuristic) และตัวละครที่เป็น 3D Animation เคลื่อนไหว มีเนื้อเรื่องน่าติดตาม เหมาะกับคนรุ่นใหม่ที่ชอบเกมภาพสวยๆ และฟีเจอร์ที่ตื่นตาตื่นใจ',
+        desc: 'สล็อตยุค Metaverse ต้อง PoggiPlay ค่ายเกมน้องใหม่ที่มาพร้อมดีไซน์ล้ำอนาคต (Futuristic) และตัวละครที่เป็น 3D Animation เเคลื่อนไหว มีเนื้อเรื่องน่าติดตาม เหมาะกับคนรุ่นใหม่ที่ชอบเกมภาพสวยๆ และฟีเจอร์ที่ตื่นตาตื่นใจ',
         pros: [
             'UI/UX ออกแบบมาเพื่อมือถือโดยเฉพาะ เล่นแนวตั้งได้ดีมาก', 
             'ธีมเกมล้ำสมัย ไซไฟ อวกาศ', 
@@ -249,7 +258,7 @@ const providers = [
     },
     { 
         name: 'V Power', id: 'v-power',
-        img: '/images/acadame/vpower_menu.png', 
+        img: '/images/acadame/vpower_menu.webp', 
         desc: 'ตำนานตู้สล็อตและเกมยิงปลา สไตล์อาเขต (Arcade) ที่คลาสสิก ถ้าคุณคิดถึงบรรยากาศการนั่งหน้าตู้สล็อตในคาสิโน V Power คือคำตอบ เกมของค่ายนี้เน้นความดิบ ความง่าย และการจ่ายรางวัลที่ตรงไปตรงมา',
         pros: [
             'ให้ความรู้สึกเหมือนเล่นตู้เกมตามห้าง หรือคาสิโนจริง', 
@@ -263,7 +272,7 @@ const providers = [
     },
     { 
         name: '2J Gaming', id: '2j-gaming',
-        img: '/images/acadame/2j_menu.png', 
+        img: '/images/acadame/2j_menu.webp', 
         desc: 'ผู้พัฒนาเกมสล็อตที่มีความหลากหลาย ทั้งธีมจีนและยุโรป เน้นความสมดุลของเกม (Balanced Gameplay) ไม่ยากและไม่ง่ายจนเกินไป มีเกมหลากหลายสไตล์ให้เลือกเล่น เป็นทางเลือกที่ดีสำหรับคนที่เบื่อค่ายหลัก',
         pros: [
             'ระบบเกมมีความยุติธรรม (Fair Play)', 
@@ -277,7 +286,7 @@ const providers = [
     },
     { 
         name: 'BT Gaming', id: 'bt-gaming',
-        img: '/images/acadame/btgaming_menu.png', 
+        img: '/images/acadame/btgaming_menu.webp', 
         desc: 'ค่ายเกมนอกกระแสที่ซ่อนฟีเจอร์เด็ดไว้มากมาย เหมาะกับสาย "ลองของใหม่" ที่ชอบค้นหาเกมแตกง่ายที่คนยังไม่ค่อยรู้ (Hidden Gems) เกมของ BT Gaming มักจะมีฟีเจอร์แปลกๆ ที่ช่วยให้ชนะรางวัลได้ง่ายขึ้น',
         pros: [
             'ฟีเจอร์โบนัสมีความแปลกใหม่ ไม่เหมือนใคร', 
@@ -291,7 +300,7 @@ const providers = [
     }
 ];
 
-
+// --- 4. ข้อมูลเกมไพ่ (นามสกุลไฟล์ .webp) ---
 const cardGames = [
     {
         id: 'sexy-baccarat',
@@ -313,7 +322,7 @@ const cardGames = [
         id: 'dragon-tiger',
         name: 'Dragon Tiger (เสือมังกร)',
         category: 'Live Casino',
-        img: '/images/card_game/sexygame-portal.webp', // ใช้รูป Sexy เพราะมีเกมนี้
+        img: '/images/card_game/sexygame-portal.webp',
         desc: 'เกมไพ่ใบเดียวที่ตัดสินผลแพ้ชนะรวดเร็วที่สุด "เสือ" หรือ "มังกร" เพียงใบเดียวก็รู้ผล เหมาะสำหรับคนใจร้อน ชอบเกมไว ไม่ต้องลุ้นนาน',
         features: ['จบตาไวใน 20 วินาที', 'กติกาง่ายที่สุดในโลก', 'อัตราจ่าย 1:1']
     },
@@ -321,7 +330,7 @@ const cardGames = [
         id: 'hi-lo',
         name: 'Thai Hi-Lo (ไฮโลไทย)',
         category: 'Table Game',
-        img: '/images/acadame/kingmakers_menu.webp', // Kingmaker ดังเรื่องไฮโล
+        img: '/images/acadame/kingmakers_menu.webp',
         desc: 'เขย่าลูกเต๋าลุ้นรวยกับเกมไฮโลไทยมาตรฐาน แทงเต็ง แทงโต๊ด 11 ไฮโล จ่ายหนักจัดเต็ม พร้อมระบบสุ่มที่ยุติธรรม โปร่งใส ตรวจสอบได้',
         features: ['โบนัสตัวคูณสายฟ้า', 'แทงขั้นต่ำแค่ 10 บาท', 'บรรยากาศเหมือนวงจริง']
     },
@@ -329,7 +338,7 @@ const cardGames = [
         id: 'mahjong-phoenix',
         name: 'Mahjong Legend (ไพ่นกกระจอก)',
         category: 'Slot/Arcade',
-        img: '/images/card_game/mahjong-phoenix.png',
+        img: '/images/card_game/mahjong-phoenix.webp',
         desc: 'จากเกมบนโต๊ะสู่สล็อตที่แตกหนักที่สุด ผสมผสานศิลปะการเล่นไพ่นกกระจอกจีนเข้ากับระบบตัวคูณรางวัล ยิ่งชนะต่อเนื่อง ตัวคูณยิ่งเพิ่มสูงขึ้น',
         features: ['แปลงสัญลักษณ์ทองเป็น Wild', 'ตัวคูณสูงสุด x10', 'ซื้อฟรีสปินได้']
     },
@@ -343,7 +352,6 @@ const cardGames = [
     }
 ];
 
-
 // --- Route Handlers ---
 
 app.get('/', (req, res) => {
@@ -352,7 +360,6 @@ app.get('/', (req, res) => {
         title: 'Fafawin168 - เว็บสล็อตและคาสิโนออนไลน์ รวมทุกค่าย เกมแตกง่าย 2024',
         description: 'รีวิวค่ายเกมสล็อต PG, XO, JILI และเกมไพ่ยอดฮิต สมัครสมาชิก Fafawin168 วันนี้รับโปรโมชั่นพิเศษ',
         canonical: 'https://ngccoenalgonda.org/',
-        // hideNavbar: true,  <-- เอาบรรทัดนี้ออกเพื่อให้แสดง Navbar ปกติ
         promotions,
         hotGames,
         providers
@@ -401,4 +408,5 @@ app.get('/promotions', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
 module.exports = app;

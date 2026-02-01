@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
+# หากต้องการบล็อก AI ให้ใช้คำสั่งมาตรฐาน
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
 Sitemap: https://ngccoenalgonda.org/sitemap.xml

@@ -1,135 +1,81 @@
-<div class="min-h-[80vh] flex items-center justify-center py-12 px-4">
-    <div class="w-full max-w-md bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-700 relative">
-        
-        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-yellow-600 via-yellow-400 to-yellow-600"></div>
-        <div class="absolute -top-10 -right-10 w-40 h-40 bg-yellow-500/10 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl"></div>
+<div class="max-w-md mx-auto my-10 p-6 bg-gray-800 rounded-2xl border border-gray-700 shadow-2xl">
+    <header class="text-center mb-8">
+        <img src="/images/logo.webp" alt="FAFAWIN168" width="120" height="40" class="mx-auto mb-4 object-contain" decoding="async">
+        <h1 class="text-3xl font-bold text-yellow-500 mb-2">สมัครสมาชิก</h1>
+        <p class="text-gray-400 text-sm">กรอกข้อมูลเพื่อรับสิทธิพิเศษจากเรา</p>
+    </header>
 
-        <div class="flex text-center border-b border-gray-700 relative z-10">
-            <button onclick="switchTab('login')" id="tab-login" class="w-1/2 py-4 font-bold text-lg transition-all duration-300 border-b-2 text-yellow-400 border-yellow-400 bg-gray-800/50">
-                เข้าสู่ระบบ
-            </button>
-            <button onclick="switchTab('register')" id="tab-register" class="w-1/2 py-4 font-bold text-lg text-gray-400 hover:text-white transition-all duration-300 border-b-2 border-transparent hover:bg-gray-700/30">
-                สมัครสมาชิก
-            </button>
+    <form action="#" class="space-y-4" onsubmit="event.preventDefault(); showLineAlert();">
+        <div>
+            <label for="phone" class="block text-sm font-medium text-gray-300 mb-1">เบอร์โทรศัพท์</label>
+            <input type="tel" id="phone" name="phone" required
+                   pattern="[0-9]{10}"
+                   class="w-full bg-gray-900 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:border-yellow-500 transition-colors" 
+                   placeholder="0XXXXXXXXX">
         </div>
+        
+        <button type="submit" 
+                class="w-full bg-yellow-500 text-black font-bold py-3 rounded-lg hover:bg-yellow-400 transition-all shadow-lg shadow-yellow-500/20 mt-6 active:scale-95">
+            ยืนยันการสมัคร
+        </button>
+    </form>
+</div>
 
-        <div class="p-8 relative z-10">
+<div id="linePopup" class="fixed inset-0 z-[110] hidden" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-black/80 backdrop-blur-sm" onclick="closeLineAlert()"></div>
+    
+    <div class="fixed inset-0 flex items-center justify-center p-4 pointer-events-none">
+        <div class="relative transform rounded-2xl bg-gray-900 border border-yellow-500 p-8 text-center shadow-2xl max-w-sm w-full pointer-events-auto animate-popup">
+            <div class="text-5xl mb-4">💬</div>
+            <h2 class="text-2xl font-bold text-white mb-2">สมัครสมาชิกสำเร็จ!</h2>
+            <p class="text-gray-300 mb-6 text-sm">
+                เพื่อรับยูสเซอร์และรหัสผ่านเข้าเล่น<br>
+                <span class="text-yellow-500 font-bold text-lg">กรุณาแอดไลน์เจ้าหน้าที่</span>
+            </p>
             
-            <div id="content-login" class="animate-fadeIn">
-                <div class="text-center mb-6">
-                    <h2 class="text-2xl font-bold text-white mb-1">ยินดีต้อนรับกลับมา!</h2>
-                    <p class="text-gray-400 text-sm">กรุณาเข้าสู่ระบบเพื่อเริ่มเดิมพัน</p>
-                </div>
-
-                <form action="/api/login" method="POST" class="space-y-5">
-                    <div>
-                        <label class="block text-gray-300 text-sm font-bold mb-2">เบอร์โทรศัพท์</label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
-                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                            </span>
-                            <input type="tel" name="phone" placeholder="กรอกเบอร์โทรศัพท์" class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition" required>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-gray-300 text-sm font-bold mb-2">รหัสผ่าน</label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
-                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                            </span>
-                            <input type="password" name="password" placeholder="กรอกรหัสผ่าน" class="w-full pl-10 pr-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition" required>
-                        </div>
-                        <div class="flex justify-end mt-1">
-                            <a href="#" class="text-xs text-yellow-500 hover:text-yellow-400">ลืมรหัสผ่าน?</a>
-                        </div>
-                    </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-black font-extrabold py-3 rounded-lg shadow-lg transform hover:-translate-y-0.5 transition-all">
-                        เข้าสู่ระบบ
-                    </button>
-                </form>
-            </div>
-
-            <div id="content-register" class="hidden animate-fadeIn">
-                <div class="text-center mb-6">
-                    <h2 class="text-2xl font-bold text-white mb-1">สมัครสมาชิกใหม่</h2>
-                    <p class="text-gray-400 text-sm">กรอกข้อมูลเพื่อรับโบนัส 100%</p>
-                </div>
-
-                <form action="/api/register" method="POST" class="space-y-5">
-                    <div>
-                        <label class="block text-gray-300 text-sm font-bold mb-2">เบอร์โทรศัพท์ (ไอดีเข้าเล่น)</label>
-                        <input type="tel" name="phone" placeholder="08x-xxx-xxxx" class="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500 transition" required>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-gray-300 text-sm font-bold mb-2">รหัสผ่าน</label>
-                            <input type="password" name="password" placeholder="ตั้งรหัสผ่าน" class="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500 transition" required>
-                        </div>
-                        <div>
-                            <label class="block text-gray-300 text-sm font-bold mb-2">ยืนยันรหัสผ่าน</label>
-                            <input type="password" name="confirm_password" placeholder="ยืนยันอีกครั้ง" class="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500 transition" required>
-                        </div>
-                    </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-black font-extrabold py-3 rounded-lg shadow-lg transform hover:-translate-y-0.5 transition-all mt-2">
-                        ยืนยันการสมัคร
-                    </button>
-                </form>
-            </div>
-
-            <div class="mt-8 pt-6 border-t border-gray-700 text-center">
-                <p class="text-gray-400 text-sm mb-4">ติดปัญหาการใช้งาน หรือต้องการสมัครผ่านแอดมิน?</p>
-                <a href="https://lin.ee/dD1X8k3" target="_blank" class="flex items-center justify-center gap-3 w-full bg-[#06C755] hover:bg-[#05b64d] text-white font-bold py-3 rounded-lg shadow-lg transition-all transform hover:scale-105 group">
-                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.355 9.176c0-4.506-4.596-8.176-10.247-8.176S-.139 4.67-.139 9.176c0 4.04 3.587 7.42 8.57 8.043.334.072.788.221.903.508.103.26.067.606.033.846-.073.535-.266 1.454-.403 1.936-.123.43-.567 1.678.69 1.13 4.298-2.527 5.864-4.243 7.973-5.263 3.693-1.785 5.827-4.475 5.827-7.199z"/></svg>
-                    <span>แอดไลน์ @FAFAWIN168</span>
+            <div class="space-y-3">
+                <a href="https://line.me/ti/p/@yourlineid" target="_blank" rel="noopener" 
+                   class="block w-full bg-[#06C755] text-white font-bold py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                    <span>LINE : @fafawin168</span>
                 </a>
+                <button type="button" onclick="closeLineAlert()" class="block w-full bg-gray-700 text-gray-300 py-2 rounded-lg text-xs font-medium hover:bg-gray-600 transition-colors">
+                    ปิดหน้าต่าง
+                </button>
             </div>
-
         </div>
     </div>
 </div>
 
 <script>
-    function switchTab(tab) {
-        const loginContent = document.getElementById('content-login');
-        const registerContent = document.getElementById('content-register');
-        const loginTab = document.getElementById('tab-login');
-        const registerTab = document.getElementById('tab-register');
-
-        if (tab === 'login') {
-            // Show Login
-            loginContent.classList.remove('hidden');
-            registerContent.classList.add('hidden');
-            
-            // Style Active Tab
-            loginTab.classList.add('text-yellow-400', 'border-yellow-400', 'bg-gray-800/50');
-            loginTab.classList.remove('text-gray-400', 'border-transparent');
-            
-            // Style Inactive Tab
-            registerTab.classList.add('text-gray-400', 'border-transparent');
-            registerTab.classList.remove('text-yellow-400', 'border-yellow-400', 'bg-gray-800/50');
-        } else {
-            // Show Register
-            registerContent.classList.remove('hidden');
-            loginContent.classList.add('hidden');
-            
-            // Style Active Tab
-            registerTab.classList.add('text-yellow-400', 'border-yellow-400', 'bg-gray-800/50');
-            registerTab.classList.remove('text-gray-400', 'border-transparent');
-            
-            // Style Inactive Tab
-            loginTab.classList.add('text-gray-400', 'border-transparent');
-            loginTab.classList.remove('text-yellow-400', 'border-yellow-400', 'bg-gray-800/50');
-        }
+    /**
+     * ฟังก์ชันแสดงป๊อปอัพ
+     */
+    function showLineAlert() {
+        const popup = document.getElementById('linePopup');
+        popup.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // ล็อคสก์โรลพื้นหลัง
     }
+
+    function closeLineAlert() {
+        const popup = document.getElementById('linePopup');
+        popup.classList.add('hidden');
+        document.body.style.overflow = ''; // คืนค่าการสก์โรล
+    }
+
+    // ปิดด้วย ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLineAlert();
+    });
 </script>
 
 <style>
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+    /* CSS Animation ประสิทธิภาพสูง */
+    @keyframes popupScale {
+        from { opacity: 0; transform: translateY(10px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
     }
-    .animate-fadeIn {
-        animation: fadeIn 0.3s ease-out forwards;
+    .animate-popup {
+        animation: popupScale 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        will-change: transform, opacity;
     }
 </style>

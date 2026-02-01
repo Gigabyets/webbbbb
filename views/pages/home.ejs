@@ -12,15 +12,15 @@
             <div>
                 <h3 class="text-yellow-500 font-bold uppercase text-xs mb-3 tracking-wider px-3">เมนูหลัก</h3>
                 <div class="space-y-1">
-                    <a href="#promotions-section" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 text-gray-300 hover:text-yellow-400 transition group">
+                    <a href="#promotions-section" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 text-gray-300 hover:text-yellow-400 transition group focus:bg-gray-800 focus:text-yellow-400">
                         <span class="text-xl group-hover:scale-110 transition">🎁</span>
                         <span class="font-medium text-sm">โปรโมชั่นทั้งหมด</span>
                     </a>
-                    <a href="#hotgames-section" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 text-gray-300 hover:text-yellow-400 transition group">
+                    <a href="#hotgames-section" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 text-gray-300 hover:text-yellow-400 transition group focus:bg-gray-800 focus:text-yellow-400">
                         <span class="text-xl group-hover:scale-110 transition">🔥</span>
                         <span class="font-medium text-sm">เกมสล็อตแตกง่าย</span>
                     </a>
-                    <a href="#providers-section" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 text-gray-300 hover:text-yellow-400 transition group">
+                    <a href="#providers-section" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 text-gray-300 hover:text-yellow-400 transition group focus:bg-gray-800 focus:text-yellow-400">
                         <span class="text-xl group-hover:scale-110 transition">🎮</span>
                         <span class="font-medium text-sm">รวมค่ายเกมชั้นนำ</span>
                     </a>
@@ -28,8 +28,8 @@
             </div>
             
             <div class="bg-gradient-to-br from-yellow-600 to-yellow-800 p-4 rounded-xl text-center shadow-lg mx-2 transform hover:scale-105 transition cursor-pointer" onclick="window.location.href='/register'">
-                <p class="text-white font-bold text-sm mb-2">ยังไม่เป็นสมาชิก?</p>
-                <div class="block bg-black text-yellow-500 py-2 rounded-lg text-sm font-bold border border-yellow-500/50">
+                <p class="text-white font-bold text-sm mb-2 drop-shadow">ยังไม่เป็นสมาชิก?</p>
+                <div class="block bg-black text-yellow-500 py-2 rounded-lg text-sm font-bold border border-yellow-500/50 shadow-lg">
                     สมัครเลย
                 </div>
             </div>
@@ -49,11 +49,14 @@
 
             <% const landscapePromos = promotions.filter(p => p.type === 'landscape'); %>
             <% if (landscapePromos.length > 0) { %>
-                <div class="relative w-full mb-8 rounded-2xl overflow-hidden shadow-2xl border border-gray-700 group-slider">
+                <div class="relative w-full mb-8 rounded-2xl overflow-hidden shadow-2xl border border-gray-700 group-slider" aria-roledescription="carousel">
                     <div id="promo-slider" class="flex transition-transform duration-500 ease-out h-[220px] md:h-[450px]">
                         <% landscapePromos.forEach((promo, index) => { %>
                             <div class="slider-item w-full flex-shrink-0 relative cursor-pointer js-promo-card" 
-                                 data-promo='<%= JSON.stringify(promo) %>'>
+                                 data-promo='<%= JSON.stringify(promo) %>'
+                                 role="group" 
+                                 aria-roledescription="slide" 
+                                 aria-label="โปรโมชั่นที่ <%= index + 1 %>">
                                 <img src="<%= promo.img %>" alt="<%= promo.title %>" class="w-full h-full object-cover" loading="<%= index === 0 ? 'eager' : 'lazy' %>">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-10">
                                     <h3 class="text-xl md:text-3xl font-bold text-white drop-shadow-lg"><%= promo.title %></h3>
@@ -62,11 +65,12 @@
                             </div>
                         <% }) %>
                     </div>
-                    <button onclick="moveSlider(-1)" aria-label="โปรโมชั่นก่อนหน้า" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 text-white p-3 rounded-full hover:bg-yellow-500 hover:text-black transition z-10 min-w-[46px] min-h-[46px]">❮</button>
-                    <button onclick="moveSlider(1)" aria-label="โปรโมชั่นถัดไป" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 text-white p-3 rounded-full hover:bg-yellow-500 hover:text-black transition z-10 min-w-[46px] min-h-[46px]">❯</button>
+                    <button onclick="moveSlider(-1)" aria-label="โปรโมชั่นก่อนหน้า" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 text-white p-3 rounded-full hover:bg-yellow-500 hover:text-black transition z-10 min-w-[46px] min-h-[46px] flex items-center justify-center">❮</button>
+                    <button onclick="moveSlider(1)" aria-label="โปรโมชั่นถัดไป" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 text-white p-3 rounded-full hover:bg-yellow-500 hover:text-black transition z-10 min-w-[46px] min-h-[46px] flex items-center justify-center">❯</button>
                 </div>
             <% } %>
 
+            <h3 class="text-xl font-bold text-white mb-4 border-l-4 border-yellow-500 pl-3">🔥 โปรโมชั่นแนะนำอื่นๆ</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <% const portraitPromos = promotions.filter(p => p.type === 'portrait'); %>
                 <% portraitPromos.forEach(promo => { %>
@@ -89,7 +93,7 @@
                 <h2 class="text-2xl md:text-3xl font-bold text-white">🔥 เกมสล็อตแตกง่าย (Hot Picks) ประจำสัปดาห์</h2>
                 <article class="mt-4 text-gray-400 text-sm leading-relaxed max-w-4xl space-y-4">
                     <p>ยกระดับการเล่นของคุณด้วยระบบวิเคราะห์ข้อมูล <strong>AI Real-time</strong> ที่ <strong>fafawin168</strong> เรานำเสนอรายชื่อเกมที่มีอัตราการจ่ายเงินคืน (RTP) สูงสุดในช่วงเวลานี้ เพื่อให้นักเดิมพันสามารถเลือกเกมที่มีโอกาสโบนัสแตกบ่อยที่สุด</p>
-                    <p>ไม่ว่าจะเป็นค่ายดังอย่าง PG Soft หรือ Pragmatic Play เราคัดสรรเฉพาะเกมที่กำลังอยู่ในช่วง "Hot" เพื่อให้สมาชิกของเราได้รับความคุ้มค่าและสนุกไปกับเกมเดิมพันคุณภาพสูงอย่างต่อเนื่อง</p>
+                    <p>ไม่ว่าจะเป็นค่ายดังอย่าง PG Soft หรือ Pragmatic Play เราคัดสรรเฉพาะเกมที่กำลังอยู่ในช่วง "Hot" เพื่อให้สมาชิกของเราได้รับความคุ้มค่าและสนุกไปกับเกมเดิมพันคุณภาพสูงอย่างต่อเนื่องผ่านทาง <strong>fafawin168 เว็บเดิมพันออนไลน์</strong> ของเรา</p>
                 </article>
             </header>
             
@@ -105,7 +109,7 @@
                         </div>
                         <div class="p-4 text-center bg-gray-900/80">
                             <h3 class="text-white text-sm font-bold truncate mb-1"><%= game.name %></h3>
-                            <div class="text-green-400 font-mono text-xs font-bold bg-green-400/10 py-1 rounded">RTP: <%= game.rate %></div>
+                            <div class="text-green-400 font-mono text-xs font-bold bg-green-400/10 py-1 rounded border border-green-400/20">RTP: <%= game.rate %></div>
                         </div>
                     </div>
                 <% }) %>
@@ -116,8 +120,8 @@
             <header class="mb-8 border-b border-gray-800 pb-6">
                 <h2 class="text-2xl md:text-3xl font-bold text-white">🎮 รวมค่ายเกมชั้นนำ (Providers) ระดับโลก</h2>
                 <article class="mt-4 text-gray-400 text-sm leading-relaxed max-w-4xl space-y-4">
-                    <p>ความหลากหลายคือหัวใจของ <strong>fafawin168 เว็บเดิมพันออนไลน์</strong> เรารวบรวมพันธมิตรจากผู้พัฒนาเกมระดับสากลมากกว่า 20 ค่าย เพื่อให้คุณเข้าถึงเกมเดิมพันทุกรูปแบบได้ในที่เดียว</p>
-                    <p>ทุกเกมที่ให้บริการผ่านแพลตฟอร์มของเราเป็นลิขสิทธิ์แท้ส่งตรงจาก API หลัก มั่นใจได้ในเรื่องของความโปร่งใส ไม่มีการปรับอัตราแพ้ชนะ ทุกการเดิมพันของคุณถูกควบคุมด้วยระบบสากลที่มีมาตรฐานสูงที่สุด</p>
+                    <p>ความหลากหลายคือหัวใจของ <strong>fafawin168 เว็บเดิมพันออนไลน์</strong> เรารวบรวมพันธมิตรจากผู้พัฒนาเกมระดับสากลมากกว่า 20 ค่าย เช่น PG SOFT, JILI, และ Pragmatic Play เพื่อให้คุณเข้าถึงเกมเดิมพันทุกรูปแบบได้ในที่เดียว</p>
+                    <p>ทุกเกมที่ให้บริการผ่านแพลตฟอร์มของเราเป็นลิขสิทธิ์แท้ส่งตรงจาก API หลัก มั่นใจได้ในเรื่องของความโปร่งใส ไม่มีการปรับอัตราแพ้ชนะ ทุกการเดิมพันของคุณถูกควบคุมด้วยระบบสากลที่มีมาตรฐานความปลอดภัยสูงที่สุด</p>
                 </article>
             </header>
 
@@ -135,31 +139,36 @@
             </div>
         </section>
 
-        <section id="about-section" class="bg-gradient-to-br from-gray-900 to-black rounded-3xl border border-gray-800 p-8 md:p-12 space-y-10">
+        <section id="about-section" class="bg-gradient-to-br from-gray-900 to-black rounded-3xl border border-gray-800 p-8 md:p-12 space-y-10 scroll-mt-32 md:scroll-mt-8">
             <div class="text-center space-y-4 max-w-4xl mx-auto">
                 <h2 class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
                     fafawin168 มั่นคง ปลอดภัย เว็บเดิมพันอันดับ 1 ในไทย
                 </h2>
-                <p class="text-gray-400 leading-relaxed">
-                    เราคือผู้ให้บริการ <strong>เว็บเดิมพันออนไลน์</strong> ที่เน้นการบริการแบบครบวงจรและซื่อสัตย์ต่อสมาชิกที่สุด ด้วยระบบฝาก-ถอน ออโต้ ที่แม่นยำและรวดเร็ว พร้อมทีมงานซัพพอร์ตระดับ VIP ที่พร้อมดูแลคุณตลอด 24 ชั่วโมง
-                </p>
+                <article class="text-gray-400 leading-relaxed text-sm md:text-base space-y-4">
+                    <p>
+                        เราคือผู้ให้บริการ <strong>fafawin168 เว็บเดิมพันออนไลน์</strong> ที่เน้นการบริการแบบครบวงจรและซื่อสัตย์ต่อสมาชิกที่สุด ด้วยระบบฝาก-ถอน ออโต้ ที่แม่นยำและรวดเร็ว พร้อมทีมงานซัพพอร์ตระดับ VIP ที่พร้อมดูแลคุณตลอด 24 ชั่วโมง
+                    </p>
+                    <p>
+                        ก้าวสู่โลกแห่งการเดิมพันที่เหนือระดับกับระบบที่รองรับการใช้งานบนทุกอุปกรณ์ ไม่ว่าคุณจะอยู่ที่ไหนก็สามารถสนุกกับเกมโปรดได้ตลอดเวลา พร้อมมั่นใจได้ในระบบการเงินที่มั่นคง จ่ายจริงทุกยอดบิล ไม่มีประวัติการโกง
+                    </p>
+                </article>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 hover:border-yellow-500/50 transition">
                     <div class="text-yellow-500 text-3xl mb-4">🛡</div>
                     <h3 class="text-white font-bold text-lg mb-2">ปลอดภัย 100%</h3>
-                    <p class="text-gray-400 text-sm">เราใช้ระบบรักษาความปลอดภัยข้อมูลขั้นสูง SSL 128-bit เพื่อปกป้องข้อมูลส่วนตัวและการเงินของสมาชิกทุกคน</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">เราใช้ระบบรักษาความปลอดภัยข้อมูลขั้นสูง SSL 128-bit มาตรฐานระดับโลก เพื่อปกป้องข้อมูลส่วนตัวและการเงินของสมาชิกทุกคน</p>
                 </div>
                 <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 hover:border-yellow-500/50 transition">
                     <div class="text-yellow-500 text-3xl mb-4">⚡</div>
                     <h3 class="text-white font-bold text-lg mb-2">รวดเร็ว ทันใจ</h3>
-                    <p class="text-gray-400 text-sm">ระบบทำรายการอัตโนมัติที่ทันสมัยที่สุด รองรับทุกธนาคารและ Wallet ทำรายการเสร็จสิ้นภายใน 3 วินาที</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">ระบบทำรายการอัตโนมัติ (Auto) ที่ทันสมัยที่สุด รองรับทุกธนาคารชั้นนำและ TrueMoney Wallet ทำรายการเสร็จสิ้นภายใน 3 วินาที</p>
                 </div>
                 <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 hover:border-yellow-500/50 transition">
                     <div class="text-yellow-500 text-3xl mb-4">💎</div>
-                    <h3 class="text-white font-bold text-lg mb-2">บริการ 24 ชม.</h3>
-                    <p class="text-gray-400 text-sm">ทีมงานมืออาชีพพร้อมตอบคำถามและช่วยเหลือสมาชิกในทุกขั้นตอน ไม่ว่าจะเป็นการสมัครหรือแจ้งปัญหาต่างๆ</p>
+                    <h3 class="text-white font-bold text-lg mb-2">บริการระดับ VIP</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">ทีมงานมืออาชีพพร้อมตอบคำถามและช่วยเหลือสมาชิกในทุกขั้นตอน ตลอด 24 ชั่วโมง เพื่อให้คุณได้รับประสบการณ์การเดิมพันที่ดีที่สุด</p>
                 </div>
             </div>
         </section>
@@ -167,25 +176,39 @@
     </main>
 </div>
 
-<div id="promoModal" class="fixed inset-0 z-[100] hidden" role="dialog" aria-modal="true">
+<div id="promoModal" class="fixed inset-0 z-[100] hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="fixed inset-0 bg-black/95 backdrop-blur-md" onclick="closePromoModal()"></div>
     <div class="fixed inset-0 z-10 overflow-y-auto">
         <div class="flex min-h-full items-center justify-center p-4">
-            <div class="relative rounded-3xl bg-gray-900 border border-yellow-500 w-full max-w-lg overflow-hidden animate-popup shadow-2xl">
-                <button onclick="closePromoModal()" aria-label="ปิดหน้าต่าง" class="absolute top-4 right-4 z-20 bg-black/60 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-red-500 transition">✕</button>
+            <div class="relative rounded-3xl bg-gray-900 border border-yellow-500 w-full max-w-4xl overflow-hidden animate-popup shadow-2xl">
+                <button onclick="closePromoModal()" aria-label="ปิดหน้าต่าง" class="absolute top-4 right-4 z-30 bg-black/60 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-red-500 transition">✕</button>
+                
                 <div class="max-h-[90vh] overflow-y-auto custom-scrollbar">
-                    <img id="modalImg" src="" alt="Promo Detail" class="w-full h-auto bg-black/50">
-                    <div class="p-8">
-                        <h3 id="modalTitle" class="text-2xl font-bold text-yellow-400 mb-3"></h3>
-                        <p id="modalDesc" class="text-gray-200 text-sm mb-8 leading-relaxed"></p>
-                        <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
-                            <h4 class="text-white font-bold mb-4 text-sm flex items-center gap-2"><span class="text-yellow-500">📜</span> เงื่อนไขการรับโปรโมชั่น</h4>
-                            <ul id="modalTerms" class="space-y-3 text-xs text-gray-400 list-disc list-inside leading-relaxed"></ul>
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        
+                        <div class="bg-black flex items-center justify-center min-h-[300px]">
+                            <img id="modalImg" src="" alt="ภาพโปรโมชั่น fafawin168" class="w-full h-full object-contain md:object-cover">
                         </div>
-                    </div>
-                    <div class="p-4 bg-gray-800 flex gap-3 sticky bottom-0 border-t border-gray-700">
-                        <button onclick="closePromoModal()" class="flex-1 py-4 bg-gray-700 text-white rounded-xl font-bold hover:bg-gray-600 transition">ปิด</button>
-                        <button onclick="window.location.href='/register'" class="flex-[2] py-4 bg-yellow-500 text-black rounded-xl font-bold shadow-lg hover:bg-yellow-400 transition">สมัครรับสิทธิ์ทันที</button>
+
+                        <div class="p-6 md:p-10 flex flex-col bg-gray-900">
+                            <h3 id="modalTitle" class="text-2xl md:text-3xl font-bold text-yellow-400 mb-4"></h3>
+                            <div class="flex-grow">
+                                <p id="modalDesc" class="text-gray-200 text-sm md:text-base mb-8 leading-relaxed"></p>
+                                
+                                <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700">
+                                    <h4 class="text-white font-bold mb-4 text-sm flex items-center gap-2">
+                                        <span class="text-yellow-500">📜</span> เงื่อนไขการรับโปรโมชั่นจาก fafawin168
+                                    </h4>
+                                    <ul id="modalTerms" class="space-y-3 text-xs md:text-sm text-gray-400 list-disc list-inside leading-relaxed"></ul>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 flex gap-3 sticky bottom-0 bg-gray-900 pt-4 border-t border-gray-800/50">
+                                <button onclick="closePromoModal()" class="flex-1 py-4 bg-gray-700 text-white rounded-xl font-bold hover:bg-gray-600 transition">ปิด</button>
+                                <button onclick="window.location.href='/register'" class="flex-[2] py-4 bg-yellow-500 text-black rounded-xl font-bold shadow-lg hover:bg-yellow-400 transition transform active:scale-95">สมัครรับสิทธิ์ทันที</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -193,8 +216,21 @@
     </div>
 </div>
 
+<footer class="bg-gray-900 border-t border-gray-800 mt-auto pt-12 pb-8 text-gray-400">
+    <div class="container mx-auto px-4 text-center">
+        <p class="mb-2">FAFAWIN168 เว็บตรงไม่ผ่านเอเย่นต์ 1 รองรับการให้บริการและบริษัทครบวงจรมั่นคง…</p>
+        <p class="mt-1">ลิขสิทธิ์แท้ 100% ไม่มีความกังวล</p>
+        <div class="mt-4">
+            <a href="/sitemap.xml" target="_blank" rel="noopener" class="text-yellow-500 hover:text-yellow-400 transition font-bold underline decoration-yellow-500/30 underline-offset-4">
+                แผนที่เว็บไซต์ (แผนผังเว็บไซต์)
+            </a>
+        </div>
+        <p class="mt-6 text-sm text-gray-500 italic">© 2026 Fafawin168 สงวนลิขสิทธิ์ทุกประการ</p>
+    </div>
+</footer>
+
 <script>
-    // Optimized Slider Logic
+    // Slider Logic
     let currentSlide = 0;
     const slider = document.getElementById('promo-slider');
     const items = document.querySelectorAll('.slider-item');
@@ -207,14 +243,14 @@
 
     if (items && items.length > 1) setInterval(() => moveSlider(1), 7000);
 
-    // Modal Logic (Safe Data Parsing)
+    // Modal Logic (แก้ไขปัญหาพังและดึงข้อมูลจาก Data Attribute)
     document.querySelectorAll('.js-promo-card').forEach(card => {
         card.addEventListener('click', function() {
             try {
                 const data = JSON.parse(this.getAttribute('data-promo'));
-                document.getElementById('modalImg').src = data.img;
-                document.getElementById('modalTitle').textContent = data.title;
-                document.getElementById('modalDesc').textContent = data.desc;
+                document.getElementById('modalImg').src = data.img || '';
+                document.getElementById('modalTitle').textContent = data.title || '';
+                document.getElementById('modalDesc').textContent = data.desc || '';
                 
                 const list = document.getElementById('modalTerms');
                 list.innerHTML = data.terms && data.terms.length > 0 
